@@ -85,7 +85,6 @@ body{
   line-height:1.75;
   color:var(--body);
   background:var(--bg);
-  overflow-x:hidden;
   overscroll-behavior-x:none;
   -webkit-font-smoothing:antialiased;
 }

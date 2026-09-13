@@ -36,7 +36,11 @@
     var pct = max > 0 ? y / max : 0;
 
     if (bar) { bar.style.width = (pct * 100) + '%'; }
-    if (header) { header.classList.toggle('stuck', y > 40); }
+    if (header) {
+      /* separate on/off points so the class cannot flutter at the boundary */
+      if (!header.classList.contains('stuck') && y > 80) { header.classList.add('stuck'); }
+      else if (header.classList.contains('stuck') && y < 30) { header.classList.remove('stuck'); }
+    }
     if (toTop) {
       toTop.classList.toggle('on', y > 500);
       if (toRing) { toRing.style.strokeDashoffset = RING - RING * pct; }
@@ -513,9 +517,10 @@
       var target = document.querySelector(id);
       if (!target) { return; }
       e.preventDefault();
-      var top = target.getBoundingClientRect().top + window.pageYOffset -
-                (header ? header.offsetHeight - 1 : 0);
-      window.scrollTo({ top: top, behavior: reduced ? 'auto' : 'smooth' });
+      var head = header ? header.offsetHeight : 0;
+      var top = target.getBoundingClientRect().top + window.pageYOffset - (head - 1);
+      if (top < head) { top = 0; }   /* first section: go right to the top */
+      window.scrollTo({ top: Math.max(0, top), behavior: reduced ? 'auto' : 'smooth' });
     });
   });
 
