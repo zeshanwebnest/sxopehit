@@ -2019,7 +2019,25 @@ section.sec--soft{background:var(--bg-soft)}
 }
 
 /* =========================================================
-   25. RESPONSIVE
+   25. LEGAL PAGES
+   ========================================================= */
+.legal{background:var(--bg)}
+.legal__doc{
+  max-width:860px;margin-inline:auto;background:#fff;
+  border:1px solid var(--line);border-radius:var(--r-xl);
+  padding:clamp(28px,4vw,60px);box-shadow:var(--sh-card);
+}
+.legal__doc .article__body h2{
+  font-size:clamp(1.15rem,1.9vw,1.45rem);margin:34px 0 12px;letter-spacing:-.02em;
+}
+.legal__doc .article__body h2:first-of-type{margin-top:28px}
+.legal__doc .article__body p{font-size:1rem;line-height:1.9}
+.legal__doc a{color:var(--navy-700);font-weight:600;text-decoration:underline;
+  text-underline-offset:3px}
+.legal__doc a:hover{color:var(--red)}
+
+/* =========================================================
+   26. RESPONSIVE
    ========================================================= */
 @media (max-width:1200px){
   .services__grid,.countries__grid{grid-template-columns:repeat(2,1fr)}
