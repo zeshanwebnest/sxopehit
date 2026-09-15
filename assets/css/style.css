@@ -305,8 +305,7 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;
   border-bottom:1px solid var(--line-soft);
   transition:box-shadow .4s var(--ease),background .4s var(--ease);
 }
-.header.stuck{box-shadow:0 10px 40px -20px rgba(10,26,51,.3);
-  background:rgba(255,255,255,.94);backdrop-filter:blur(14px)}
+.header.stuck{box-shadow:0 10px 40px -20px rgba(10,26,51,.3);background:#fff}
 
 /* three tracks: the outer two are equal, so the nav lands dead centre
    of the container no matter how wide the logo or the button get. */
@@ -332,7 +331,9 @@ svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.8;
 .brand--footer .brand__img{height:54px}
 .brand--mobile .brand__img{height:42px}
 
-/* nav — centre track */
+/* nav — centre track. The shell only becomes a real box on mobile; here it
+   collapses so .nav stays a direct grid child of .header__inner. */
+.navshell{display:contents}
 .nav{justify-self:center}
 .nav__list{display:flex;align-items:center;gap:2px}
 .nav__list > li{position:relative}
@@ -2089,8 +2090,13 @@ section.sec--soft{background:var(--bg-soft)}
   .header__inner{display:flex;justify-content:space-between;min-height:78px}
   .brand__img,.header.stuck .brand__img{height:46px}
 
+  /* viewport-sized clipper: the drawer can never reach outside it */
+  .navshell{
+    display:block;position:fixed;inset:0;height:100dvh;z-index:99;
+    overflow:hidden;pointer-events:none;
+  }
   .nav{
-    position:fixed;top:0;right:0;z-index:99;width:min(340px,86vw);height:100dvh;
+    position:absolute;top:0;right:0;width:min(340px,86vw);height:100%;
     background:linear-gradient(165deg,var(--navy-800),var(--navy-900) 60%);
     padding:26px 24px 32px;display:flex;flex-direction:column;gap:8px;margin:0;
     transform:translateX(100%);visibility:hidden;pointer-events:none;
